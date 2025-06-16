@@ -1,31 +1,31 @@
-**Prisma TypeScript Authentication API**
+Prisma TypeScript Authentication API
 
 A Node.js API built with TypeScript, Prisma, and Express, featuring JWT-based authentication with role-based access control for `user`, `admin`, and `superadmin` roles. The application includes two database models (`User` and `Admin`) and protected routes with middleware for authentication.
 
-**Features**
+## Features
 
-- Database: Prisma ORM with `User` and `Admin` tables (id, name, email, password, role).
-- Authentication: JWT-based authentication with `bcrypt` for password hashing.
-- Role-Based Access:
+- **Database**: Prisma ORM with `User` and `Admin` tables (id, name, email, password, role).
+- **Authentication**: JWT-based authentication with `bcrypt` for password hashing.
+- **Role-Based Access**:
   - `user`: Access to user-specific routes.
   - `admin`: Access to admin and user routes.
   - `superadmin`: Access to all routes.
-- Endpoints: User/admin signup, login, and protected routes.
-- Middleware: Authentication middleware to verify JWT and roles.
+- **Endpoints**: User/admin signup, login, and protected routes.
+- **Middleware**: Authentication middleware to verify JWT and roles.
 
-**Tech Stack**
+## Tech Stack
 
-- Node.js: Runtime environment.
-- TypeScript: For type-safe JavaScript.
-- Express: Web framework for API routes.
-- Prisma: ORM for database management.
-- JWT: JSON Web Tokens for authentication.
-- bcrypt: Password hashing.
-- Database: Configurable (PostgreSQL, MySQL, SQLite, etc.).
+- **Node.js**: Runtime environment.
+- **TypeScript**: For type-safe JavaScript.
+- **Express**: Web framework for API routes.
+- **Prisma**: ORM for database management.
+- **JWT**: JSON Web Tokens for authentication.
+- **bcrypt**: Password hashing.
+- **Database**: Configurable (PostgreSQL, MySQL, SQLite, etc.).
 
-**File Structure**
+## File Structure
 
-```plaintext
+```
 project-root/
 ├── prisma/
 │   ├── migrations/        # Prisma migration files
@@ -40,68 +40,88 @@ project-root/
 └── README.md              # This file
 ```
 
-**Prerequisites**
+## Prerequisites
 
-- Node.js: v20.18.3 or higher
-- npm: v10 or higher
-- Database: PostgreSQL, MySQL, or SQLite (configured via `DATABASE_URL`)
-- Git: For cloning the repository
+- **Node.js**: v20.18.3 or higher
+- **npm**: v10 or higher
+- **Database**: PostgreSQL, MySQL, or SQLite (configured via `DATABASE_URL`)
+- **Git**: For cloning the repository
 
-**Setup Instructions**
+## Setup Instructions
 
 1. **Clone the Repository**:
+
    ```bash
    git clone <repository-url>
    cd <repository-name>
    ```
 
 2. **Install Dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Configure Environment Variables**:
+
    - Create a `.env` file in the root directory:
+
      ```env
      DATABASE_URL="your_database_connection_string"
      JWT_SECRET="your_jwt_secret_key"
      ```
+
    - Replace `your_database_connection_string` with your database URL (e.g., `postgresql://user:password@localhost:5432/dbname`).
 
 4. **Set Up Prisma**:
+
    - Initialize the database schema:
+
      ```bash
      npx prisma migrate dev --name init
      ```
+
    - Generate Prisma client:
+
      ```bash
      npx prisma generate
      ```
 
 5. **Compile and Run**:
+
    - Compile TypeScript to JavaScript:
+
      ```bash
      npx tsc
      ```
+
    - Start the server:
+
      ```bash
      node dist/index.js
      ```
+
    - Alternatively, use `nodemon` for development:
+
      ```bash
      npm install --save-dev nodemon ts-node
      npm run dev
      ```
 
 6. **Access the API**:
+
    - The server runs on `http://localhost:3000`.
 
-**API Endpoints**
+## API Endpoints
 
-**User Signup**
-- Method: `POST`
-- URL: `/user/signup`
-- Body:
+### User Signup
+
+- **Method**: `POST`
+
+- **URL**: `/user/signup`
+
+- **Body**:
+
   ```json
   {
     "name": "John Doe",
@@ -109,15 +129,17 @@ project-root/
     "password": "password123"
   }
   ```
-- Response:
-  ```json
-  { "token": "<jwt_token>" }
-  ```
 
-**Admin Signup**
-- Method: `POST`
-- URL: `/admin/signup`
-- Body:
+- **Response**: `{ "token": "<jwt_token>" }`
+
+### Admin Signup
+
+- **Method**: `POST`
+
+- **URL**: `/admin/signup`
+
+- **Body**:
+
   ```json
   {
     "name": "Admin User",
@@ -126,15 +148,17 @@ project-root/
     "role": "admin" // or "superadmin"
   }
   ```
-- Response:
-  ```json
-  { "token": "<jwt_token>" }
-  ```
 
-**Login**
-- Method: `POST`
-- URL: `/login`
-- Body:
+- **Response**: `{ "token": "<jwt_token>" }`
+
+### Login
+
+- **Method**: `POST`
+
+- **URL**: `/login`
+
+- **Body**:
+
   ```json
   {
     "email": "john@example.com",
@@ -142,51 +166,50 @@ project-root/
     "type": "user" // or "admin"
   }
   ```
-- Response:
-  ```json
-  { "token": "<jwt_token>" }
-  ```
 
-**Protected Routes**
-- Headers: `Authorization: Bearer <jwt_token>`
-- Endpoints:
+- **Response**: `{ "token": "<jwt_token>" }`
+
+### Protected Routes
+
+- **Headers**: `Authorization: Bearer <jwt_token>`
+- **Endpoints**:
   - `GET /user/protected`: Accessible by `user`, `admin`, or `superadmin`.
   - `GET /admin/protected`: Accessible by `admin` or `superadmin`.
   - `GET /superadmin/protected`: Accessible by `superadmin` only.
-- Response:
-  ```json
-  { "message": "<route_message>", "user": { "id": number, "role": string } }
-  ```
+- **Response**: `{ "message": "<route_message>", "user": { "id": number, "role": string } }`
 
-**Testing**
+## Testing
 
-- Use Postman, cURL, or Insomnia to test endpoints.
+- Use **Postman**, **cURL**, or **Insomnia** to test endpoints.
+
 - Example with cURL:
+
   ```bash
   curl -X POST http://localhost:3000/user/signup \
     -H "Content-Type: application/json" \
     -d '{"name":"John Doe","email":"john@example.com","password":"password123"}'
   ```
+
 - View database data with Prisma Studio:
+
   ```bash
   npx prisma studio
   ```
 
-**Development**
+## Development
 
-- Scripts:
+- **Scripts**:
   - Build: `npm run build` (compiles TypeScript)
   - Start: `npm start` (runs `node dist/index.js`)
   - Dev: `npm run dev` (uses `nodemon` for auto-restart)
-- Add Features:
+- **Add Features**:
   - Create new models in `schema.prisma` and run `npx prisma migrate dev`.
   - Add routes in `src/index.ts`.
   - Enhance middleware in `src/middleware.ts` for custom permissions.
 
-**Deployment**
+## Deployment
 
-1. **Set Up a Database**:
-   - Use a cloud provider (e.g., Neon, PlanetScale).
+1. **Set Up a Database**: Use a cloud provider (e.g., Neon, PlanetScale).
 2. **Deploy API**:
    - Build: `npm run build`
    - Deploy to Render, Vercel, or AWS.
@@ -196,7 +219,7 @@ project-root/
    - Use a strong `JWT_SECRET`.
    - Add rate limiting with `express-rate-limit`.
 
-**Contributing**
+## Contributing
 
 - Fork the repository.
 - Create a feature branch (`git checkout -b feature-name`).
@@ -204,10 +227,10 @@ project-root/
 - Push to the branch (`git push origin feature-name`).
 - Open a pull request.
 
-**License**
+## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT License. See LICENSE for details.
 
-**Contact**
+## Contact
 
-For issues or suggestions, open a GitHub issue or contact the maintainer.
+# For issues or suggestions, open a GitHub issue or contact the maintainer.
