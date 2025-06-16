@@ -1,4 +1,4 @@
-Prisma TypeScript Authentication API
+**Prisma TypeScript Authentication API**
 A Node.js API built with TypeScript, Prisma, and Express, featuring JWT-based authentication with role-based access control for user, admin, and superadmin roles. The application includes two database models (User and Admin) and protected routes with middleware for authentication.
 Features
 
